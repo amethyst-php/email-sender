@@ -9,11 +9,11 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
 use Railken\Bag;
+use Railken\LaraOre\DataBuilder\DataBuilderManager;
 use Railken\LaraOre\EmailSender\EmailSender;
 use Railken\LaraOre\EmailSender\EmailSenderManager;
 use Railken\LaraOre\Events\EmailSender\EmailFailed;
 use Railken\LaraOre\Events\EmailSender\EmailSent;
-use Railken\LaraOre\Template\TemplateManager;
 use Railken\Laravel\Manager\Contracts\AgentContract;
 
 class SendEmail implements ShouldQueue
@@ -47,32 +47,31 @@ class SendEmail implements ShouldQueue
         $email = $this->email;
 
         $esm = new EmailSenderManager();
-        $tm = new TemplateManager();
+        $dbm = new DataBuilderManager();
 
-        $bag = new Bag();
-        $bag->set('to', explode(',', $tm->renderRaw('text/plain', $email->recipients, $data)));
-        $bag->set('subject', $tm->renderRaw('text/plain', $email->subject, $data));
-        $bag->set('body', $tm->renderRaw('text/html', $email->body, $data));
-
-        $attachments = [];
-
-        foreach ((array) $this->email->attachments as $key => $attachment) {
-            $attachment = (object) $attachment;
-
-            $attachments[$key]['as'] = $tm->renderRaw('text/plain', $attachment->as, $data);
-            $attachments[$key]['source'] = (new Bag($data))->get($attachment->source);
-        }
-
-        $bag->set('attachments', $attachments);
-
-        $result = $esm->render($email->data_builder, $email->body, $data);
+        $result = $dbm->build($email->data_builder, $data);
 
         if (!$result->ok()) {
             return event(new EmailFailed($email, $result->getErrors()[0], $this->agent));
         }
 
+        $data = $result->getResource();
+        $result = $esm->render($email->data_builder, [
+            'body'        => $email->body,
+            'subject'     => $email->subject,
+            'sender'      => $email->sender,
+            'recipients'  => $email->recipients,
+            'attachments' => $email->attachments,
+        ], $data);
+
+        if (!$result->ok()) {
+            return event(new EmailFailed($email, $result->getErrors()[0], $this->agent));
+        }
+
+        $bag = new Bag($result->getResource());
+
         Mail::send([], [], function ($message) use ($bag) {
-            $message->to($bag->get('to'))
+            $message->to($bag->get('recipients'))
                 ->subject($bag->get('subject'))
                 ->setBody($bag->get('body'), 'text/html');
 

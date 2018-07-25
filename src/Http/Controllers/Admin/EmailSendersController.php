@@ -100,23 +100,36 @@ class EmailSendersController extends RestConfigurableController
         /** @var \Railken\LaraOre\EmailSender\EmailSenderManager */
         $manager = $this->manager;
 
+        $dbm = (new DataBuilderManager());
+
         /** @var \Railken\LaraOre\DataBuilder\DataBuilder */
-        $data_builder = (new DataBuilderManager())->getRepository()->findOneById(intval($request->input('data_builder_id')));
+        $data_builder = $dbm->getRepository()->findOneById(intval($request->input('data_builder_id')));
 
         if ($data_builder == null) {
             return $this->error([['message' => 'invalid data_builder_id']]);
         }
 
-        $result = $manager->render(
-            $data_builder,
-            strval($request->input('body')),
-            (array) $request->input('data')
-        );
+        $result = $dbm->build($data_builder, (array) $request->input('data'));
+
+        if ($result->ok()) {
+            $result = $manager->render(
+                $data_builder,
+                [
+                    'body' => strval($request->input('body')),
+                ],
+                $result->getResource()
+            );
+        }
 
         if (!$result->ok()) {
             return $this->error(['errors' => $result->getSimpleErrors()]);
         }
 
-        return $this->success(['resource' => base64_encode($result->getResource())]);
+        $resource = $result->getResource();
+
+        return $this->success(['resource' => [
+            'body'    => base64_encode($resource['body']),
+            'subject' => base64_encode($resource['subject']),
+        ]]);
     }
 }

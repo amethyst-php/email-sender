@@ -2,6 +2,7 @@
 
 namespace Railken\LaraOre\Tests\EmailSender;
 
+use Railken\LaraOre\DataBuilder\DataBuilderManager;
 use Railken\LaraOre\EmailSender\EmailSenderFaker;
 use Railken\LaraOre\EmailSender\EmailSenderManager;
 use Railken\LaraOre\File\FileManager;
@@ -51,9 +52,11 @@ class ManagerTest extends BaseTest
 
         $resource = $result->getResource();
 
-        $result = $manager->render($resource->data_builder, '{{ name }}', ['name' => 'ban']);
+        $result = $manager->render($resource->data_builder, [
+            'body' => '{{ name }}',
+        ], (new DataBuilderManager())->build($resource->data_builder, ['name' => 'ban'])->getResource());
 
         $this->assertEquals(true, $result->ok());
-        $this->assertEquals('ban', $result->getResource());
+        $this->assertEquals('ban', $result->getResource()['body']);
     }
 }

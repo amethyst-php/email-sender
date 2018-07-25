@@ -29,6 +29,18 @@ class ApiTest extends BaseTest
         $this->commonTest($this->getBaseUrl(), EmailSenderFaker::make()->parameters());
     }
 
+    public function testSend()
+    {
+        $manager = new EmailSenderManager();
+
+        $result = $manager->create(EmailSenderFaker::make()->parameters()->set('data_builder.repository.class_name', \Railken\LaraOre\Tests\EmailSender\Repositories\EmailSenderRepository::class));
+        $this->assertEquals(1, $result->ok());
+        $resource = $result->getResource();
+
+        $response = $this->post($this->getBaseUrl().'/'.$resource->id.'/send', ['data' => ['name' => $resource->name]]);
+        $this->assertOrPrint($response, 200);
+    }
+
     public function testRender()
     {
         $manager = new EmailSenderManager();
@@ -41,10 +53,12 @@ class ApiTest extends BaseTest
         $response = $this->post($this->getBaseUrl().'/render', [
             'data_builder_id' => $resource->data_builder->id,
             'body'            => '{{ name }}',
+            'subject'         => 'Subject',
+            'recipients'      => 'test@test.net',
             'data'            => ['name' => 'ban'],
         ]);
 
-        $response->assertStatus(200);
-        $this->assertEquals('ban', base64_decode(json_decode($response->getContent())->resource));
+        $this->assertOrPrint($response, 200);
+        $this->assertEquals('ban', base64_decode(json_decode($response->getContent())->resource->body));
     }
 }

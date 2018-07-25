@@ -4,6 +4,7 @@ namespace Railken\LaraOre\EmailSender;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
+use Railken\Bag;
 use Railken\LaraOre\DataBuilder\DataBuilder;
 use Railken\LaraOre\DataBuilder\DataBuilderManager;
 use Railken\LaraOre\Jobs\EmailSender\SendEmail;
@@ -86,12 +87,7 @@ class EmailSenderManager extends ModelManager
      */
     public function send(EmailSender $email, array $data = [])
     {
-        $result = new Result();
-        $result->addErrors((new DataBuilderManager())->getValidator()->raw((array) $email->data_builder->input, $data));
-
-        if (!$result->ok()) {
-            return $result;
-        }
+        $result = (new DataBuilderManager())->validateRaw($email->data_builder, $data);
 
         dispatch(new SendEmail($email, $data, $this->getAgent()));
 
@@ -102,36 +98,43 @@ class EmailSenderManager extends ModelManager
      * Render an email.
      *
      * @param DataBuilder $data_builder
-     * @param string      $body
+     * @param array       $parameters
      * @param array       $data
      *
      * @return \Railken\Laravel\Manager\Contracts\ResultContract
      */
-    public function render(DataBuilder $data_builder, string $body, array $data = [])
+    public function render(DataBuilder $data_builder, $parameters, array $data = [])
     {
-        $repository = $data_builder->repository;
-        $input = $data_builder->input;
-
-        $result = new Result();
-        $result->addErrors((new DataBuilderManager())->getValidator()->raw((array) $input, $data));
-
-        if (!$result->ok()) {
-            return $result;
-        }
+        $parameters = $this->castParameters($parameters);
 
         $tm = new TemplateManager();
 
+        $data = $data;
+
+        $result = new Result();
+
         try {
-            $query = $repository->newInstanceQuery($data);
+            $bag = new Bag($parameters);
 
-            $resources = $query->get();
+            $bag->set('body', $tm->renderRaw('text/html', strval($bag->get('body')), $data));
 
-            $rendered = $tm->renderRaw('text/html', strval($body), array_merge($data, $repository->parse($resources)));
+            $attachments = [];
 
-            $result->setResources(new Collection($rendered));
-        } catch (FormattingException | \PDOException | \Railken\SQ\Exceptions\QuerySyntaxException $e) {
-            $e = new Exceptions\EmailSenderRenderException($e->getMessage());
-            $result->addErrors(new Collection([$e]));
+            foreach ((array) $bag->get('attachments', []) as $key => $attachment) {
+                $attachment = (object) $attachment;
+
+                $attachments[$key]['as'] = strval($tm->renderRaw('text/plain', $attachment->as, $data));
+
+                $attachments[$key]['source'] = (new Bag($data))->get($attachment->source);
+            }
+
+            $bag->set('attachments', $attachments);
+
+            $bag->set('recipients', explode(',', $tm->renderRaw('text/plain', strval($bag->get('recipients')), $data)));
+            $bag->set('subject', $tm->renderRaw('text/plain', strval($bag->get('subject')), $data));
+            $bag->set('sender', $tm->renderRaw('text/plain', strval($bag->get('sender')), $data));
+
+            $result->setResources(new Collection([$bag->toArray()]));
         } catch (\Twig_Error $e) {
             $e = new Exceptions\EmailSenderRenderException($e->getRawMessage().' on line '.$e->getTemplateLine());
 
