@@ -60,6 +60,35 @@ class EmailSendersController extends RestConfigurableController
     ];
 
     /**
+     * Generate.
+     *
+     * @param int                      $id
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function send(int $id, Request $request)
+    {
+        /** @var \Railken\LaraOre\EmailSender\EmailSenderManager */
+        $manager = $this->manager;
+
+        /** @var \Railken\LaraOre\EmailSender\EmailSender */
+        $email = $manager->getRepository()->findOneById($id);
+
+        if ($email == null) {
+            return $this->not_found();
+        }
+
+        $result = $manager->send($email, (array) $request->input('data'));
+
+        if (!$result->ok()) {
+            return $this->error(['errors' => $result->getSimpleErrors()]);
+        }
+
+        return $this->success([]);
+    }
+
+    /**
      * Render raw template.
      *
      * @param \Illuminate\Http\Request $request

@@ -13,7 +13,7 @@ use Railken\Laravel\Manager\Contracts\EntityContract;
  * @property string      $description
  * @property DataBuilder $data_builder
  * @property string      $body
- * @property string      $attachments
+ * @property object      $attachments
  * @property string      $subject
  * @property string      $sender
  * @property string      $recipients
@@ -51,6 +51,15 @@ class EmailSender extends Model implements EntityContract
      * @var array
      */
     protected $dates = ['deleted_at'];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'attachments'         => 'object',
+    ];
 
     /**
      * Creates a new instance of the model.

@@ -6,6 +6,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
 use Railken\LaraOre\DataBuilder\DataBuilder;
 use Railken\LaraOre\DataBuilder\DataBuilderManager;
+use Railken\LaraOre\Jobs\EmailSender\SendEmail;
 use Railken\LaraOre\Template\TemplateManager;
 use Railken\Laravel\Manager\Contracts\AgentContract;
 use Railken\Laravel\Manager\ModelManager;
@@ -73,6 +74,28 @@ class EmailSenderManager extends ModelManager
         $this->setValidator(new $classValidator($this));
 
         parent::__construct($agent);
+    }
+
+    /**
+     * Send an email..
+     *
+     * @param EmailSender $email
+     * @param array       $data
+     *
+     * @return \Railken\Laravel\Manager\Contracts\ResultContract
+     */
+    public function send(EmailSender $email, array $data = [])
+    {
+        $result = new Result();
+        $result->addErrors((new DataBuilderManager())->getValidator()->raw((array) $email->data_builder->input, $data));
+
+        if (!$result->ok()) {
+            return $result;
+        }
+
+        dispatch(new SendEmail($email, $data, $this->getAgent()));
+
+        return $result;
     }
 
     /**

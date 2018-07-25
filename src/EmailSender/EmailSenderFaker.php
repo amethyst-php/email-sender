@@ -29,7 +29,12 @@ class EmailSenderFaker extends BaseFaker
         $bag->set('body', 'test');
         $bag->set('sender', 'test@test.net');
         $bag->set('recipients', 'test@test.net');
-        $bag->set('attachments', 'test@test.net');
+        $bag->set('attachments', [
+            [
+                'as'     => 'test.txt',
+                'source' => 'file',
+            ],
+        ]);
 
         return $bag;
     }

@@ -53,8 +53,8 @@ class EmailSenderServiceProvider extends ServiceProvider
                 $router->put('/{id}', ['uses' => $controller.'@update']);
                 $router->delete('/{id}', ['uses' => $controller.'@remove']);
                 $router->get('/{id}', ['uses' => $controller.'@show']);
-
                 $router->post('/render', ['uses' => $controller.'@render']);
+                $router->post('/{id}/send', ['uses' => $controller.'@send'])->where(['id' => '[0-9]+']);
             });
         }
     }

@@ -5,7 +5,6 @@ namespace Railken\LaraOre\EmailSender\Attributes\Attachments;
 use Railken\Laravel\Manager\Attributes\BaseAttribute;
 use Railken\Laravel\Manager\Contracts\EntityContract;
 use Railken\Laravel\Manager\Tokens;
-use Respect\Validation\Validator as v;
 
 class AttachmentsAttribute extends BaseAttribute
 {
@@ -61,6 +60,18 @@ class AttachmentsAttribute extends BaseAttribute
      */
     public function valid(EntityContract $entity, $value)
     {
-        return v::length(1, 255)->validate($value);
+        return is_object($value) || is_array($value);
+    }
+
+    /**
+     * Retrieve default value.
+     *
+     * @param \Railken\Laravel\Manager\Contracts\EntityContract $entity
+     *
+     * @return mixed
+     */
+    public function getDefault(EntityContract $entity)
+    {
+        return (object) [];
     }
 }
