@@ -108,9 +108,7 @@ class EmailSenderManager extends ModelManager
         $parameters = $this->castParameters($parameters);
 
         $tm = new TemplateManager();
-
-        $data = $data;
-
+        
         $result = new Result();
 
         try {
