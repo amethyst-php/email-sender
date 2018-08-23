@@ -109,7 +109,15 @@ class EmailSendersController extends RestConfigurableController
             return $this->error([['message' => 'invalid data_builder_id']]);
         }
 
-        $result = $dbm->build($data_builder, (array) $request->input('data'));
+        $data = (array) $request->input('data');
+
+        $result = $dbm->build($data_builder, $data);
+
+        if (!$result->ok()) {
+            return $this->error(['errors' => $result->getSimpleErrors()]);
+        }
+
+        $data = array_merge($data, $result->getResource());
 
         if ($result->ok()) {
             $result = $manager->render(
@@ -117,7 +125,7 @@ class EmailSendersController extends RestConfigurableController
                 [
                     'body' => strval($request->input('body')),
                 ],
-                $result->getResource()
+                $data
             );
         }
 
