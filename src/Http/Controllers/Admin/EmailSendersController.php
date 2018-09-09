@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Config;
 use Railken\LaraOre\Api\Http\Controllers\RestConfigurableController;
 use Railken\LaraOre\Api\Http\Controllers\Traits as RestTraits;
 use Railken\LaraOre\DataBuilder\DataBuilderManager;
+use Symfony\Component\HttpFoundation\Response;
 
 class EmailSendersController extends RestConfigurableController
 {
@@ -65,7 +66,7 @@ class EmailSendersController extends RestConfigurableController
      * @param int                      $id
      * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function send(int $id, Request $request)
     {
@@ -76,7 +77,7 @@ class EmailSendersController extends RestConfigurableController
         $email = $manager->getRepository()->findOneById($id);
 
         if ($email == null) {
-            return $this->not_found();
+            return $this->response('', Response::HTTP_NOT_FOUND);
         }
 
         $result = $manager->send($email, (array) $request->input('data'));
@@ -93,7 +94,7 @@ class EmailSendersController extends RestConfigurableController
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function render(Request $request)
     {

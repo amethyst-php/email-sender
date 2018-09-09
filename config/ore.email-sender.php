@@ -107,7 +107,7 @@ return [
             'enabled'    => true,
             'controller' => Railken\LaraOre\Http\Controllers\Admin\EmailSendersController::class,
             'router'     => [
-                'prefix'      => '/admin/email-senders',
+                'prefix'      => '/email-senders',
             ],
         ],
     ],

@@ -3,13 +3,13 @@
 namespace Railken\LaraOre\Tests\EmailSender;
 
 use Illuminate\Support\Facades\Config;
+use Railken\LaraOre\Api\Support\Testing\TestableTrait;
 use Railken\LaraOre\EmailSender\EmailSenderFaker;
 use Railken\LaraOre\EmailSender\EmailSenderManager;
-use Railken\LaraOre\Support\Testing\ApiTestableTrait;
 
 class ApiTest extends BaseTest
 {
-    use ApiTestableTrait;
+    use TestableTrait;
 
     /**
      * Retrieve basic url.
@@ -18,7 +18,7 @@ class ApiTest extends BaseTest
      */
     public function getBaseUrl()
     {
-        return Config::get('ore.api.router.prefix').Config::get('ore.email-sender.http.admin.router.prefix');
+        return Config::get('ore.api.http.admin.router.prefix').Config::get('ore.email-sender.http.admin.router.prefix');
     }
 
     /**
@@ -38,7 +38,8 @@ class ApiTest extends BaseTest
         $resource = $result->getResource();
 
         $response = $this->post($this->getBaseUrl().'/'.$resource->id.'/send', ['data' => ['name' => $resource->name]]);
-        $this->assertOrPrint($response, 200);
+
+        $response->assertStatus(200);
     }
 
     public function testRender()
@@ -58,7 +59,7 @@ class ApiTest extends BaseTest
             'data'            => ['name' => 'ban'],
         ]);
 
-        $this->assertOrPrint($response, 200);
+        $response->assertStatus(200);
         $this->assertEquals('ban', base64_decode(json_decode($response->getContent())->resource->body));
     }
 }
