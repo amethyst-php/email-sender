@@ -3,31 +3,34 @@
 namespace Railken\LaraOre\Tests\EmailSender;
 
 use Illuminate\Support\Facades\Config;
-use Railken\LaraOre\Api\Support\Testing\TestableTrait;
+use Railken\LaraOre\Api\Support\Testing\TestableBaseTrait;
 use Railken\LaraOre\EmailSender\EmailSenderFaker;
 use Railken\LaraOre\EmailSender\EmailSenderManager;
 
 class ApiTest extends BaseTest
 {
-    use TestableTrait;
+    use TestableBaseTrait;
 
     /**
-     * Retrieve basic url.
+     * Faker class.
      *
-     * @return string
+     * @var string
      */
-    public function getBaseUrl()
-    {
-        return Config::get('ore.api.http.admin.router.prefix').Config::get('ore.email-sender.http.admin.router.prefix');
-    }
+    protected $faker = EmailSenderFaker::class;
 
     /**
-     * Test common requests.
+     * Router group resource.
+     *
+     * @var string
      */
-    public function testSuccessCommon()
-    {
-        $this->commonTest($this->getBaseUrl(), EmailSenderFaker::make()->parameters());
-    }
+    protected $group = 'admin';
+
+    /**
+     * Base path config.
+     *
+     * @var string
+     */
+    protected $config = 'ore.email-sender';
 
     public function testSend()
     {
@@ -37,9 +40,7 @@ class ApiTest extends BaseTest
         $this->assertEquals(1, $result->ok());
         $resource = $result->getResource();
 
-        $response = $this->post($this->getBaseUrl().'/'.$resource->id.'/send', ['data' => ['name' => $resource->name]]);
-
-        $response->assertStatus(200);
+        $response = $this->callAndTest('POST', $this->getResourceUrl().'/'.$resource->id.'/send', ['data' => ['name' => $resource->name]], 200);
     }
 
     public function testRender()
@@ -51,15 +52,14 @@ class ApiTest extends BaseTest
 
         $resource = $result->getResource();
 
-        $response = $this->post($this->getBaseUrl().'/render', [
+        $response = $this->callAndTest('post', $this->getResourceUrl().'/render', [
             'data_builder_id' => $resource->data_builder->id,
             'body'            => '{{ name }}',
             'subject'         => 'Subject',
             'recipients'      => 'test@test.net',
             'data'            => ['name' => 'ban'],
-        ]);
+        ], 200);
 
-        $response->assertStatus(200);
         $this->assertEquals('ban', base64_decode(json_decode($response->getContent())->resource->body));
     }
 }
