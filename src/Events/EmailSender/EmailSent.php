@@ -1,10 +1,10 @@
 <?php
 
-namespace Railken\LaraOre\Events\EmailSender;
+namespace Railken\Amethyst\Events\EmailSender;
 
 use Illuminate\Queue\SerializesModels;
-use Railken\LaraOre\EmailSender\EmailSender;
-use Railken\Laravel\Manager\Contracts\AgentContract;
+use Railken\Amethyst\Models\EmailSender;
+use Railken\Lem\Contracts\AgentContract;
 
 class EmailSent
 {
@@ -16,8 +16,8 @@ class EmailSent
     /**
      * Create a new event instance.
      *
-     * @param \Railken\LaraOre\EmailSender\EmailSender         $email
-     * @param \Railken\Laravel\Manager\Contracts\AgentContract $agent
+     * @param \Railken\Amethyst\Models\EmailSender $email
+     * @param \Railken\Lem\Contracts\AgentContract $agent
      */
     public function __construct(EmailSender $email, AgentContract $agent = null)
     {

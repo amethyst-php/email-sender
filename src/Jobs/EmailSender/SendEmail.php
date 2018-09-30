@@ -1,6 +1,6 @@
 <?php
 
-namespace Railken\LaraOre\Jobs\EmailSender;
+namespace Railken\Amethyst\Jobs\EmailSender;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -8,13 +8,13 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
+use Railken\Amethyst\Events\EmailSender\EmailFailed;
+use Railken\Amethyst\Events\EmailSender\EmailSent;
+use Railken\Amethyst\Managers\DataBuilderManager;
+use Railken\Amethyst\Managers\EmailSenderManager;
+use Railken\Amethyst\Models\EmailSender;
 use Railken\Bag;
-use Railken\LaraOre\DataBuilder\DataBuilderManager;
-use Railken\LaraOre\EmailSender\EmailSender;
-use Railken\LaraOre\EmailSender\EmailSenderManager;
-use Railken\LaraOre\Events\EmailSender\EmailFailed;
-use Railken\LaraOre\Events\EmailSender\EmailSent;
-use Railken\Laravel\Manager\Contracts\AgentContract;
+use Railken\Lem\Contracts\AgentContract;
 
 class SendEmail implements ShouldQueue
 {
@@ -27,9 +27,9 @@ class SendEmail implements ShouldQueue
     /**
      * Create a new job instance.
      *
-     * @param EmailSender                                      $email
-     * @param array                                            $data
-     * @param \Railken\Laravel\Manager\Contracts\AgentContract $agent
+     * @param EmailSender                          $email
+     * @param array                                $data
+     * @param \Railken\Lem\Contracts\AgentContract $agent
      */
     public function __construct(EmailSender $email, array $data = [], AgentContract $agent = null)
     {

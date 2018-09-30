@@ -1,11 +1,11 @@
 <?php
 
-namespace Railken\LaraOre\Events\EmailSender;
+namespace Railken\Amethyst\Events\EmailSender;
 
 use Exception;
 use Illuminate\Queue\SerializesModels;
-use Railken\LaraOre\EmailSender\EmailSender;
-use Railken\Laravel\Manager\Contracts\AgentContract;
+use Railken\Amethyst\Models\EmailSender;
+use Railken\Lem\Contracts\AgentContract;
 
 class EmailFailed
 {
@@ -18,9 +18,9 @@ class EmailFailed
     /**
      * Create a new event instance.
      *
-     * @param \Railken\LaraOre\EmailSender\EmailSender         $email
-     * @param \Exception                                       $exception
-     * @param \Railken\Laravel\Manager\Contracts\AgentContract $agent
+     * @param \Railken\Amethyst\Models\EmailSender $email
+     * @param \Exception                           $exception
+     * @param \Railken\Lem\Contracts\AgentContract $agent
      */
     public function __construct(EmailSender $email, Exception $exception, AgentContract $agent = null)
     {

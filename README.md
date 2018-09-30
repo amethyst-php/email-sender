@@ -1,8 +1,8 @@
-# lara-ore-email-sender
+# amethyst-email-sender
 
-[![Build Status](https://travis-ci.org/railken/lara-ore-email-sender.svg?branch=master)](https://travis-ci.org/railken/lara-ore-email-sender)
+[![Build Status](https://travis-ci.org/railken/amethyst-email-sender.svg?branch=master)](https://travis-ci.org/railken/amethyst-email-sender)
 
-This is a [lara-ore](https://github.com/railken/lara-ore) package.
+[Amethyst](https://github.com/railken/amethyst) package.
 
 # Requirements
 
@@ -13,7 +13,7 @@ PHP 7.1 and later.
 You can install it via [Composer](https://getcomposer.org/) by typing the following command:
 
 ```bash
-composer require railken/lara-ore-email-sender
+composer require railken/amethyst-email-sender
 ```
 
 The package will automatically register itself.

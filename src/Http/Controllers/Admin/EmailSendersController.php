@@ -1,15 +1,15 @@
 <?php
 
-namespace Railken\LaraOre\Http\Controllers\Admin;
+namespace Railken\Amethyst\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Config;
-use Railken\LaraOre\Api\Http\Controllers\RestConfigurableController;
-use Railken\LaraOre\Api\Http\Controllers\Traits as RestTraits;
-use Railken\LaraOre\DataBuilder\DataBuilderManager;
+use Railken\Amethyst\Api\Http\Controllers\RestManagerController;
+use Railken\Amethyst\Api\Http\Controllers\Traits as RestTraits;
+use Railken\Amethyst\Managers\DataBuilderManager;
+use Railken\Amethyst\Managers\EmailSenderManager;
 use Symfony\Component\HttpFoundation\Response;
 
-class EmailSendersController extends RestConfigurableController
+class EmailSendersController extends RestManagerController
 {
     use RestTraits\RestIndexTrait;
     use RestTraits\RestShowTrait;
@@ -18,47 +18,11 @@ class EmailSendersController extends RestConfigurableController
     use RestTraits\RestRemoveTrait;
 
     /**
-     * The config path.
+     * The class of the manager.
      *
      * @var string
      */
-    public $config = 'ore.email-sender';
-
-    /**
-     * The attributes that are queryable.
-     *
-     * @var array
-     */
-    public $queryable = [
-        'id',
-        'name',
-        'sender',
-        'recipients',
-        'subject',
-        'body',
-        'attachments',
-        'description',
-        'data_builder_id',
-        'created_at',
-        'updated_at',
-    ];
-
-    /**
-     * The attributes that are fillable.
-     *
-     * @var array
-     */
-    public $fillable = [
-        'name',
-        'sender',
-        'recipients',
-        'subject',
-        'body',
-        'attachments',
-        'description',
-        'data_builder',
-        'data_builder_id',
-    ];
+    public $class = EmailSenderManager::class;
 
     /**
      * Generate.
@@ -70,10 +34,10 @@ class EmailSendersController extends RestConfigurableController
      */
     public function send(int $id, Request $request)
     {
-        /** @var \Railken\LaraOre\EmailSender\EmailSenderManager */
+        /** @var \Railken\Amethyst\Managers\EmailSenderManager */
         $manager = $this->manager;
 
-        /** @var \Railken\LaraOre\EmailSender\EmailSender */
+        /** @var \Railken\Amethyst\Models\EmailSender */
         $email = $manager->getRepository()->findOneById($id);
 
         if ($email == null) {
@@ -98,12 +62,12 @@ class EmailSendersController extends RestConfigurableController
      */
     public function render(Request $request)
     {
-        /** @var \Railken\LaraOre\EmailSender\EmailSenderManager */
+        /** @var \Railken\Amethyst\Managers\EmailSenderManager */
         $manager = $this->manager;
 
         $dbm = (new DataBuilderManager());
 
-        /** @var \Railken\LaraOre\DataBuilder\DataBuilder */
+        /** @var \Railken\Amethyst\Models\DataBuilder */
         $data_builder = $dbm->getRepository()->findOneById(intval($request->input('data_builder_id')));
 
         if ($data_builder == null) {
