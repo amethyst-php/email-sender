@@ -31,7 +31,7 @@ class EmailSenderTest extends BaseTest
     {
         $manager = $this->getManager();
 
-        $result = $manager->create(EmailSenderFaker::make()->parameters()->set('data_builder.repository.class_name', \Railken\Amethyst\Tests\Repositories\EmailSenderRepository::class));
+        $result = $manager->create(EmailSenderFaker::make()->parameters());
         $this->assertEquals(1, $result->ok());
 
         $resource = $result->getResource();
@@ -47,7 +47,7 @@ class EmailSenderTest extends BaseTest
     {
         $manager = $this->getManager();
 
-        $result = $manager->create(EmailSenderFaker::make()->parameters()->set('data_builder.repository.class_name', \Railken\Amethyst\Tests\Repositories\EmailSenderRepository::class));
+        $result = $manager->create(EmailSenderFaker::make()->parameters());
         $this->assertEquals(1, $result->ok());
 
         $resource = $result->getResource();

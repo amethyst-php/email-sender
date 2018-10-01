@@ -2,6 +2,8 @@
 
 namespace Railken\Amethyst\Tests;
 
+use Illuminate\Support\Facades\File;
+
 abstract class BaseTest extends \Orchestra\Testbench\TestCase
 {
     /**
@@ -13,6 +15,7 @@ abstract class BaseTest extends \Orchestra\Testbench\TestCase
         $dotenv->load();
 
         parent::setUp();
+        File::cleanDirectory(database_path('migrations/'));
 
         $this->artisan('vendor:publish', [
             '--provider' => 'Spatie\MediaLibrary\MediaLibraryServiceProvider',
