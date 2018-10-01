@@ -57,6 +57,8 @@ class EmailSenderDataBuilder implements DataBuilderContract
     }
 
     /**
+     * Parse collection of resources.
+     *
      * @param Collection $resources
      *
      * @return Collection
