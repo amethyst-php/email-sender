@@ -21,8 +21,8 @@ class CreateEmailSendersTable extends Migration
             $table->string('subject')->nullable();
             $table->text('body')->nullable();
             $table->string('sender')->nullable();
-            $table->text('recipients');
-            $table->text('attachments');
+            $table->text('recipients')->nullable();
+            $table->text('attachments')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
