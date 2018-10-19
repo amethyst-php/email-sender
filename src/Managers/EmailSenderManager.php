@@ -3,7 +3,7 @@
 namespace Railken\Amethyst\Managers;
 
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Config;
+use Railken\Amethyst\Common\ConfigurableManager;
 use Railken\Amethyst\Exceptions;
 use Railken\Amethyst\Jobs\EmailSender\SendEmail;
 use Railken\Amethyst\Models\DataBuilder;
@@ -14,20 +14,12 @@ use Railken\Lem\Result;
 
 class EmailSenderManager extends Manager
 {
-    /**
-     * Describe this manager.
-     *
-     * @var string
-     */
-    public $comment = '...';
+    use ConfigurableManager;
 
     /**
-     * Register Classes.
+     * @var string
      */
-    public function registerClasses()
-    {
-        return Config::get('amethyst.email-sender.managers.email-sender');
-    }
+    protected $config = 'amethyst.email-sender.data.email-sender';
 
     /**
      * Send an email..

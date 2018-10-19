@@ -3,90 +3,24 @@
 return [
     /*
     |--------------------------------------------------------------------------
-    | Managers
+    | Data
     |--------------------------------------------------------------------------
     |
-    | Here you can change the table name and the class components
-    | used by each manager.
+    | Here you can change the table name and the class components.
     |
     */
-    'managers' => [
+    'data' => [
         'email-sender' => [
-            /*
-            |--------------------------------------------------------------------------
-            | Table Name
-            |--------------------------------------------------------------------------
-            |
-            | This is the table name used while interacting with the database
-            |
-            */
-            'table' => 'amethyst_email_senders',
-
-            /*
-            |--------------------------------------------------------------------------
-            | Class Entity
-            |--------------------------------------------------------------------------
-            |
-            | The class of the model used by the manager.
-            | Change this if you have to add more relations or custom logic.
-            |
-            */
-            'model' => Railken\Amethyst\Models\EmailSender::class,
-
-            /*
-            |--------------------------------------------------------------------------
-            | Class Schema
-            |--------------------------------------------------------------------------
-            |
-            | The class of the schema used by the manager.
-            | Change this if you want to update the attributes.
-            */
-            'schema' => Railken\Amethyst\Schemas\EmailSenderSchema::class,
-
-            /*
-            |--------------------------------------------------------------------------
-            | Class Repository
-            |--------------------------------------------------------------------------
-            |
-            | The class of the repository used to perform all queries.
-            | Change this if you have to add more complex queries (e.g. ::findOneBy).
-            |
-            */
+            'table'      => 'amethyst_email_senders',
+            'comment'    => 'Email Sender',
+            'model'      => Railken\Amethyst\Models\EmailSender::class,
+            'schema'     => Railken\Amethyst\Schemas\EmailSenderSchema::class,
             'repository' => Railken\Amethyst\Repositories\EmailSenderRepository::class,
-
-            /*
-            |--------------------------------------------------------------------------
-            | Class Serializer
-            |--------------------------------------------------------------------------
-            |
-            | The class of the serializer used to serialize the model.
-            | Change this if you have to add more data while serializing.
-            |
-            */
             'serializer' => Railken\Amethyst\Serializers\EmailSenderSerializer::class,
-
-            /*
-            |--------------------------------------------------------------------------
-            | Class Validator
-            |--------------------------------------------------------------------------
-            |
-            | The class of the validator used to validate the parameters.
-            | Change this if you have to add more complex validation.
-            | A validation handled by the single attributes is always preferred to this.
-            |
-            */
-            'validator' => Railken\Amethyst\Validators\EmailSenderValidator::class,
-
-            /*
-            |--------------------------------------------------------------------------
-            | Class Authorizer
-            |--------------------------------------------------------------------------
-            |
-            | The class of the authorizer used to authorize the user.
-            | Change this if you have to add more complex authorization.
-            |
-            */
+            'validator'  => Railken\Amethyst\Validators\EmailSenderValidator::class,
             'authorizer' => Railken\Amethyst\Authorizers\EmailSenderAuthorizer::class,
+            'faker'      => Railken\Amethyst\Fakers\EmailSenderFaker::class,
+            'manager'    => Railken\Amethyst\Managers\EmailSenderManager::class,
         ],
     ],
 

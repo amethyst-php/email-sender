@@ -28,7 +28,7 @@ class EmailSenderSchema extends Schema
             Attributes\LongTextAttribute::make('sender'),
             Attributes\LongTextAttribute::make('body'),
             Attributes\LongTextAttribute::make('subject'),
-            Attributes\LongTextAttribute::make('attachments'),
+            Attributes\ObjectAttribute::make('attachments'),
             Attributes\CreatedAtAttribute::make(),
             Attributes\UpdatedAtAttribute::make(),
             Attributes\DeletedAtAttribute::make(),
