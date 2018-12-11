@@ -67,7 +67,7 @@ class EmailSenderManager extends Manager
 
                 $attachments[$key]['as'] = strval($tm->renderRaw('text/plain', $attachment->as, $data));
 
-                $attachments[$key]['source'] = (new Bag($data))->get($attachment->source);
+                $attachments[$key]['source'] = strval($tm->renderRaw('text/plain', $attachment->source, $data));
             }
 
             $bag->set('attachments', $attachments);

@@ -27,7 +27,7 @@ class EmailSenderFaker extends Faker
         $bag->set('attachments', [
             [
                 'as'     => 'test.txt',
-                'source' => 'file',
+                'source' => '{{ file }}',
             ],
         ]);
 

@@ -33,13 +33,9 @@ class EmailSenderTest extends BaseTest
 
         $result = $manager->create(EmailSenderFaker::make()->parameters());
         $this->assertEquals(1, $result->ok());
-
         $resource = $result->getResource();
-        $fm = new FileManager();
-        $result = $fm->uploadFileByContent('hello my friend', 'welcome.txt');
-        $file = $result->getResource();
 
-        $result = $manager->send($resource, ['name' => $resource->name, 'file' => $file]);
+        $result = $manager->send($resource, ['name' => $resource->name, 'file' => 'https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png']);
         $this->assertEquals(true, $result->ok());
     }
 
