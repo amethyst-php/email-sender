@@ -26,11 +26,11 @@ class EmailSenderTest extends BaseTest
     protected $group = 'admin';
 
     /**
-     * Base path config.
+     * Route name.
      *
      * @var string
      */
-    protected $config = 'amethyst.email-sender.http.admin.email-sender';
+    protected $route = 'admin.email-sender';
 
     public function testSend()
     {
@@ -40,7 +40,7 @@ class EmailSenderTest extends BaseTest
         $this->assertEquals(1, $result->ok());
         $resource = $result->getResource();
 
-        $response = $this->callAndTest('POST', $this->getResourceUrl().'/'.$resource->id.'/send', ['data' => ['name' => $resource->name]], 200);
+        $response = $this->callAndTest('POST', route('admin.email-sender.send', ['id' => $resource->id]), ['data' => ['name' => $resource->name]], 200);
     }
 
     public function testRender()
@@ -52,7 +52,7 @@ class EmailSenderTest extends BaseTest
 
         $resource = $result->getResource();
 
-        $response = $this->callAndTest('post', $this->getResourceUrl().'/render', [
+        $response = $this->callAndTest('post', route('admin.email-sender.render'), [
             'data_builder_id' => $resource->data_builder->id,
             'body'            => '{{ name }}',
             'subject'         => 'Subject',
