@@ -5,7 +5,6 @@ namespace Railken\Amethyst\Tests\Managers;
 use Railken\Amethyst\Fakers\EmailSenderFaker;
 use Railken\Amethyst\Managers\DataBuilderManager;
 use Railken\Amethyst\Managers\EmailSenderManager;
-use Railken\Amethyst\Managers\FileManager;
 use Railken\Amethyst\Tests\BaseTest;
 use Railken\Lem\Support\Testing\TestableBaseTrait;
 

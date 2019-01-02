@@ -77,9 +77,8 @@ class SendEmail implements ShouldQueue
 
             foreach ($bag->get('attachments') as $attachment) {
                 if (!empty($attachment['source']) && !empty($attachment['as'])) {
-
                     $source = file_get_contents($attachment['source']);
-                    
+
                     $message->attach($attachment['source'], ['as' => $attachment['as']]);
                 }
             }
