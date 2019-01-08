@@ -63,7 +63,7 @@ class EmailSenderManager extends Manager
 
             $attachments = [];
 
-            foreach ((array) Yaml::parse($bag->get('attachments', '')) as $key => $attachment) {
+            foreach ((array) Yaml::parse(strval($bag->get('attachments'))) as $key => $attachment) {
                 $attachment = (object) $attachment;
 
                 $attachments[$key]['as'] = strval($tm->renderRaw('text/plain', $attachment->as, $data));
