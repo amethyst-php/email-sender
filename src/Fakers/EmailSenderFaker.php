@@ -6,6 +6,7 @@ use Faker\Factory;
 use Railken\Amethyst\DataBuilders\EmailSenderDataBuilder;
 use Railken\Bag;
 use Railken\Lem\Faker;
+use Symfony\Component\Yaml\Yaml;
 
 class EmailSenderFaker extends Faker
 {
@@ -24,12 +25,12 @@ class EmailSenderFaker extends Faker
         $bag->set('body', 'test');
         $bag->set('sender', 'test@test.net');
         $bag->set('recipients', 'test@test.net');
-        $bag->set('attachments', [
+        $bag->set('attachments', Yaml::dump([
             [
-                'as'     => 'test.txt',
+                'as'     => '{{ name }}',
                 'source' => '{{ file }}',
             ],
-        ]);
+        ]));
 
         return $bag;
     }

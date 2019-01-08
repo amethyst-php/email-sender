@@ -11,6 +11,7 @@ use Railken\Amethyst\Models\EmailSender;
 use Railken\Bag;
 use Railken\Lem\Manager;
 use Railken\Lem\Result;
+use Symfony\Component\Yaml\Yaml;
 
 class EmailSenderManager extends Manager
 {
@@ -62,7 +63,7 @@ class EmailSenderManager extends Manager
 
             $attachments = [];
 
-            foreach ((array) $bag->get('attachments', []) as $key => $attachment) {
+            foreach ((array) Yaml::parse($bag->get('attachments', '')) as $key => $attachment) {
                 $attachment = (object) $attachment;
 
                 $attachments[$key]['as'] = strval($tm->renderRaw('text/plain', $attachment->as, $data));
