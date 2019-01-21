@@ -60,6 +60,6 @@ class EmailSenderTest extends BaseTest
             'data'            => ['name' => 'ban'],
         ], 200);
 
-        $this->assertEquals('ban', base64_decode(json_decode($response->getContent())->resource->body));
+        $this->assertEquals('ban', base64_decode(json_decode($response->getContent())->resource->body, true));
     }
 }

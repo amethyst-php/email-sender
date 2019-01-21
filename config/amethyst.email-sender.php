@@ -35,11 +35,11 @@ return [
     'http' => [
         'admin' => [
             'email-sender' => [
-                'enabled'     => true,
-                'controller'  => Railken\Amethyst\Http\Controllers\Admin\EmailSendersController::class,
-                'router'      => [
-                    'as'        => 'email-sender.',
-                    'prefix'    => '/email-senders',
+                'enabled'    => true,
+                'controller' => Railken\Amethyst\Http\Controllers\Admin\EmailSendersController::class,
+                'router'     => [
+                    'as'     => 'email-sender.',
+                    'prefix' => '/email-senders',
                 ],
             ],
         ],
