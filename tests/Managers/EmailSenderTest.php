@@ -36,7 +36,7 @@ class EmailSenderTest extends BaseTest
 
         $result = $manager->send($resource, [
             'name' => $resource->name.'.png',
-            'file' => 'https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png',
+            'file' => 'https://github.githubassets.com/images/modules/logos_page/Octocat.png',
         ]);
 
         $this->assertEquals(true, $result->ok());
