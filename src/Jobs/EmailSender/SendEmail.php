@@ -18,7 +18,10 @@ use Railken\Lem\Contracts\AgentContract;
 
 class SendEmail implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     protected $email;
     protected $data;
