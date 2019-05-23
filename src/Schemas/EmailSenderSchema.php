@@ -26,7 +26,7 @@ class EmailSenderSchema extends Schema
                 ->setRelationManager(DataBuilderManager::class),
             Attributes\LongTextAttribute::make('recipients'),
             Attributes\LongTextAttribute::make('sender'),
-            Attributes\LongTextAttribute::make('body'),
+            Attributes\HtmlAttribute::make('body'),
             Attributes\LongTextAttribute::make('subject'),
             Attributes\YamlAttribute::make('attachments'),
             Attributes\CreatedAtAttribute::make(),
