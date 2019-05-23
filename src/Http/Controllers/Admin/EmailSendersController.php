@@ -32,7 +32,7 @@ class EmailSendersController extends RestManagerController
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function send(int $id, Request $request)
+    public function execute(int $id, Request $request)
     {
         /** @var \Railken\Amethyst\Managers\EmailSenderManager */
         $manager = $this->manager;
