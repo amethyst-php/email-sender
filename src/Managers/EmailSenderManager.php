@@ -30,7 +30,7 @@ class EmailSenderManager extends Manager
      *
      * @return \Railken\Lem\Contracts\ResultContract
      */
-    public function send(EmailSender $email, array $data = [])
+    public function execute(EmailSender $email, array $data = [])
     {
         $result = (new DataBuilderManager())->validateRaw($email->data_builder, $data);
 
