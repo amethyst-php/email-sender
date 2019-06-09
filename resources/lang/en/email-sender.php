@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'EmailSender',
-    'description' => 'EmailSender',
+    'name' => 'Email Sender',
+    'description' => 'Email Sender',
     'attributes' => []
 ];
