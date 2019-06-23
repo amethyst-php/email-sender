@@ -34,7 +34,7 @@ class EmailSenderTest extends BaseTest
         $this->assertEquals(1, $result->ok());
         $resource = $result->getResource();
 
-        $result = $manager->send($resource, [
+        $result = $manager->execute($resource, [
             'name' => $resource->name.'.png',
             'file' => 'https://github.githubassets.com/images/modules/logos_page/Octocat.png',
         ]);
