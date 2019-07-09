@@ -1,11 +1,11 @@
 <?php
 
-namespace Railken\Amethyst\Tests\Managers;
+namespace Amethyst\Tests\Managers;
 
-use Railken\Amethyst\Fakers\EmailSenderFaker;
-use Railken\Amethyst\Managers\DataBuilderManager;
-use Railken\Amethyst\Managers\EmailSenderManager;
-use Railken\Amethyst\Tests\BaseTest;
+use Amethyst\Fakers\EmailSenderFaker;
+use Amethyst\Managers\DataBuilderManager;
+use Amethyst\Managers\EmailSenderManager;
+use Amethyst\Tests\BaseTest;
 use Railken\Lem\Support\Testing\TestableBaseTrait;
 
 class EmailSenderTest extends BaseTest

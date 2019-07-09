@@ -13,14 +13,14 @@ return [
         'email-sender' => [
             'table'      => 'amethyst_email_senders',
             'comment'    => 'Email Sender',
-            'model'      => Railken\Amethyst\Models\EmailSender::class,
-            'schema'     => Railken\Amethyst\Schemas\EmailSenderSchema::class,
-            'repository' => Railken\Amethyst\Repositories\EmailSenderRepository::class,
-            'serializer' => Railken\Amethyst\Serializers\EmailSenderSerializer::class,
-            'validator'  => Railken\Amethyst\Validators\EmailSenderValidator::class,
-            'authorizer' => Railken\Amethyst\Authorizers\EmailSenderAuthorizer::class,
-            'faker'      => Railken\Amethyst\Fakers\EmailSenderFaker::class,
-            'manager'    => Railken\Amethyst\Managers\EmailSenderManager::class,
+            'model'      => Amethyst\Models\EmailSender::class,
+            'schema'     => Amethyst\Schemas\EmailSenderSchema::class,
+            'repository' => Amethyst\Repositories\EmailSenderRepository::class,
+            'serializer' => Amethyst\Serializers\EmailSenderSerializer::class,
+            'validator'  => Amethyst\Validators\EmailSenderValidator::class,
+            'authorizer' => Amethyst\Authorizers\EmailSenderAuthorizer::class,
+            'faker'      => Amethyst\Fakers\EmailSenderFaker::class,
+            'manager'    => Amethyst\Managers\EmailSenderManager::class,
         ],
     ],
 
@@ -36,7 +36,7 @@ return [
         'admin' => [
             'email-sender' => [
                 'enabled'    => true,
-                'controller' => Railken\Amethyst\Http\Controllers\Admin\EmailSendersController::class,
+                'controller' => Amethyst\Http\Controllers\Admin\EmailSendersController::class,
                 'router'     => [
                     'as'     => 'email-sender.',
                     'prefix' => '/email-senders',

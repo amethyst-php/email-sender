@@ -1,6 +1,6 @@
 <?php
 
-namespace Railken\Amethyst\Jobs\EmailSender;
+namespace Amethyst\Jobs\EmailSender;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -8,11 +8,11 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
-use Railken\Amethyst\Events\EmailSender\EmailFailed;
-use Railken\Amethyst\Events\EmailSender\EmailSent;
-use Railken\Amethyst\Managers\DataBuilderManager;
-use Railken\Amethyst\Managers\EmailSenderManager;
-use Railken\Amethyst\Models\EmailSender;
+use Amethyst\Events\EmailSender\EmailFailed;
+use Amethyst\Events\EmailSender\EmailSent;
+use Amethyst\Managers\DataBuilderManager;
+use Amethyst\Managers\EmailSenderManager;
+use Amethyst\Models\EmailSender;
 use Railken\Bag;
 use Railken\Lem\Contracts\AgentContract;
 

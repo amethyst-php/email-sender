@@ -1,13 +1,13 @@
 <?php
 
-namespace Railken\Amethyst\Managers;
+namespace Amethyst\Managers;
 
 use Illuminate\Support\Collection;
-use Railken\Amethyst\Common\ConfigurableManager;
-use Railken\Amethyst\Exceptions;
-use Railken\Amethyst\Jobs\EmailSender\SendEmail;
-use Railken\Amethyst\Models\DataBuilder;
-use Railken\Amethyst\Models\EmailSender;
+use Amethyst\Common\ConfigurableManager;
+use Amethyst\Exceptions;
+use Amethyst\Jobs\EmailSender\SendEmail;
+use Amethyst\Models\DataBuilder;
+use Amethyst\Models\EmailSender;
 use Railken\Bag;
 use Railken\Lem\Manager;
 use Railken\Lem\Result;

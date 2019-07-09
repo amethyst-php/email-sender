@@ -1,9 +1,9 @@
 <?php
 
-namespace Railken\Amethyst\Events\EmailSender;
+namespace Amethyst\Events\EmailSender;
 
 use Illuminate\Queue\SerializesModels;
-use Railken\Amethyst\Models\EmailSender;
+use Amethyst\Models\EmailSender;
 use Railken\Lem\Contracts\AgentContract;
 
 class EmailSent
@@ -16,7 +16,7 @@ class EmailSent
     /**
      * Create a new event instance.
      *
-     * @param \Railken\Amethyst\Models\EmailSender $email
+     * @param \Amethyst\Models\EmailSender $email
      * @param \Railken\Lem\Contracts\AgentContract $agent
      */
     public function __construct(EmailSender $email, AgentContract $agent = null)

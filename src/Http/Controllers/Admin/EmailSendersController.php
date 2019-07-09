@@ -1,12 +1,12 @@
 <?php
 
-namespace Railken\Amethyst\Http\Controllers\Admin;
+namespace Amethyst\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Railken\Amethyst\Api\Http\Controllers\RestManagerController;
-use Railken\Amethyst\Api\Http\Controllers\Traits as RestTraits;
-use Railken\Amethyst\Managers\DataBuilderManager;
-use Railken\Amethyst\Managers\EmailSenderManager;
+use Amethyst\Api\Http\Controllers\RestManagerController;
+use Amethyst\Api\Http\Controllers\Traits as RestTraits;
+use Amethyst\Managers\DataBuilderManager;
+use Amethyst\Managers\EmailSenderManager;
 use Symfony\Component\HttpFoundation\Response;
 
 class EmailSendersController extends RestManagerController
@@ -34,10 +34,10 @@ class EmailSendersController extends RestManagerController
      */
     public function execute(int $id, Request $request)
     {
-        /** @var \Railken\Amethyst\Managers\EmailSenderManager */
+        /** @var \Amethyst\Managers\EmailSenderManager */
         $manager = $this->manager;
 
-        /** @var \Railken\Amethyst\Models\EmailSender */
+        /** @var \Amethyst\Models\EmailSender */
         $email = $manager->getRepository()->findOneById($id);
 
         if ($email == null) {
@@ -62,12 +62,12 @@ class EmailSendersController extends RestManagerController
      */
     public function render(Request $request)
     {
-        /** @var \Railken\Amethyst\Managers\EmailSenderManager */
+        /** @var \Amethyst\Managers\EmailSenderManager */
         $manager = $this->manager;
 
         $dbm = (new DataBuilderManager());
 
-        /** @var \Railken\Amethyst\Models\DataBuilder */
+        /** @var \Amethyst\Models\DataBuilder */
         $data_builder = $dbm->getRepository()->findOneById(intval($request->input('data_builder_id')));
 
         if ($data_builder == null) {
