@@ -2,17 +2,17 @@
 
 namespace Amethyst\Jobs\EmailSender;
 
+use Amethyst\Events\EmailSender\EmailFailed;
+use Amethyst\Events\EmailSender\EmailSent;
+use Amethyst\Managers\DataBuilderManager;
+use Amethyst\Managers\EmailSenderManager;
+use Amethyst\Models\EmailSender;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
-use Amethyst\Events\EmailSender\EmailFailed;
-use Amethyst\Events\EmailSender\EmailSent;
-use Amethyst\Managers\DataBuilderManager;
-use Amethyst\Managers\EmailSenderManager;
-use Amethyst\Models\EmailSender;
 use Railken\Bag;
 use Railken\Lem\Contracts\AgentContract;
 

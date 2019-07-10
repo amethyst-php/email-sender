@@ -2,9 +2,9 @@
 
 namespace Amethyst\Events\EmailSender;
 
+use Amethyst\Models\EmailSender;
 use Exception;
 use Illuminate\Queue\SerializesModels;
-use Amethyst\Models\EmailSender;
 use Railken\Lem\Contracts\AgentContract;
 
 class EmailFailed
@@ -18,7 +18,7 @@ class EmailFailed
     /**
      * Create a new event instance.
      *
-     * @param \Amethyst\Models\EmailSender $email
+     * @param \Amethyst\Models\EmailSender         $email
      * @param \Exception                           $exception
      * @param \Railken\Lem\Contracts\AgentContract $agent
      */

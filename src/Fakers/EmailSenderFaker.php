@@ -2,8 +2,8 @@
 
 namespace Amethyst\Fakers;
 
-use Faker\Factory;
 use Amethyst\DataBuilders\EmailSenderDataBuilder;
+use Faker\Factory;
 use Railken\Bag;
 use Railken\Lem\Faker;
 use Symfony\Component\Yaml\Yaml;
