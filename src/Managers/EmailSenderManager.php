@@ -14,12 +14,12 @@ use Railken\Lem\Result;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * @method \Amethyst\Models\EmailSender newEntity()
- * @method \Amethyst\Schemas\EmailSenderSchema getSchema()
+ * @method \Amethyst\Models\EmailSender                 newEntity()
+ * @method \Amethyst\Schemas\EmailSenderSchema          getSchema()
  * @method \Amethyst\Repositories\EmailSenderRepository getRepository()
- * @method \Amethyst\Serializers\EmailSenderSerializer getSerializer()
- * @method \Amethyst\Validators\EmailSenderValidator getValidator()
- * @method \Amethyst\Authorizers\EmailSenderAuthorizer getAuthorizer()
+ * @method \Amethyst\Serializers\EmailSenderSerializer  getSerializer()
+ * @method \Amethyst\Validators\EmailSenderValidator    getValidator()
+ * @method \Amethyst\Authorizers\EmailSenderAuthorizer  getAuthorizer()
  */
 class EmailSenderManager extends Manager
 {
