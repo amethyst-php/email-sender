@@ -33,13 +33,15 @@ class EmailSenderManager extends Manager
     /**
      * Send an email..
      *
-     * @param EmailSender $email
+     * @param EmailSender|id $email
      * @param array       $data
      *
      * @return \Railken\Lem\Contracts\ResultContract
      */
-    public function execute(EmailSender $email, array $data = [])
+    public function execute($email, array $data = [])
     {
+        $email = is_int($email) ? $this->getRepository()->findOneById($email) : $email;
+
         $result = (new DataBuilderManager())->validateRaw($email->data_builder, $data);
 
         dispatch(new SendEmail($email, $data, $this->getAgent()));
