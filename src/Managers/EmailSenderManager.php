@@ -33,7 +33,7 @@ class EmailSenderManager extends Manager
     /**
      * Send an email..
      *
-     * @param EmailSender|id $email
+     * @param EmailSender|int $email
      * @param array       $data
      *
      * @return \Railken\Lem\Contracts\ResultContract
