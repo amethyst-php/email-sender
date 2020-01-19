@@ -2,7 +2,7 @@
 
 namespace Amethyst\Managers;
 
-use Amethyst\Common\ConfigurableManager;
+use Amethyst\Core\ConfigurableManager;
 use Amethyst\Exceptions;
 use Amethyst\Jobs\EmailSender\SendEmail;
 use Amethyst\Models\DataBuilder;
