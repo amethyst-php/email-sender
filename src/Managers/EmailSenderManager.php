@@ -41,7 +41,7 @@ class EmailSenderManager extends Manager
     public function execute($email, $data = [])
     {
         $data = is_object($data) ? (array) $data : $data;
-        
+
         $email = is_int($email) ? $this->getRepository()->findOneById($email) : $email;
 
         $result = (new DataBuilderManager())->validateRaw($email->data_builder, $data);
