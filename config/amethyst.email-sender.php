@@ -23,25 +23,4 @@ return [
             'manager'    => Amethyst\Managers\EmailSenderManager::class,
         ],
     ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Http configuration
-    |--------------------------------------------------------------------------
-    |
-    | Here you may configure the routes
-    |
-    */
-    'http' => [
-        'admin' => [
-            'email-sender' => [
-                'enabled'    => true,
-                'controller' => Amethyst\Http\Controllers\Admin\EmailSendersController::class,
-                'router'     => [
-                    'as'     => 'email-sender.',
-                    'prefix' => '/email-senders',
-                ],
-            ],
-        ],
-    ],
 ];
