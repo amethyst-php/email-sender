@@ -28,15 +28,12 @@ class EmailSenderServiceProvider extends CommonServiceProvider
      */
     public function loadExtraRoutes()
     {
-        $config = Config::get('amethyst.email-sender.http.admin.email-sender');
+        $config = Config::get('amethyst.email-sender.http.app.email-sender');
 
-        if (Arr::get($config, 'enabled')) {
-            Router::group('admin', Arr::get($config, 'router'), function ($router) use ($config) {
-                $controller = Arr::get($config, 'controller');
-
-                $router->post('/render', ['as' => 'render', 'uses' => $controller.'@render']);
-                $router->post('/{id}/execute', ['as' => 'execute', 'uses' => $controller.'@execute'])->where(['id' => '[0-9]+']);
-            });
-        }
+        Router::group('app', Arr::get($config, 'router'), function ($router) use ($config) {
+            $controller = Arr::get($config, 'controller');
+            $router->post('/render', ['as' => 'render', 'uses' => $controller.'@render']);
+            $router->post('/{id}/execute', ['as' => 'execute', 'uses' => $controller.'@execute'])->where(['id' => '[0-9]+']);
+        });
     }
 }

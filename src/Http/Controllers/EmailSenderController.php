@@ -1,6 +1,6 @@
 <?php
 
-namespace Amethyst\Http\Controllers\Admin;
+namespace Amethyst\Http\Controllers;
 
 use Amethyst\Core\Http\Controllers\RestManagerController;
 use Amethyst\Core\Http\Controllers\Traits as RestTraits;
@@ -9,20 +9,12 @@ use Amethyst\Managers\EmailSenderManager;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class EmailSendersController extends RestManagerController
+class EmailSenderController extends RestManagerController
 {
-    use RestTraits\RestIndexTrait;
-    use RestTraits\RestShowTrait;
-    use RestTraits\RestCreateTrait;
-    use RestTraits\RestUpdateTrait;
-    use RestTraits\RestRemoveTrait;
-
-    /**
-     * The class of the manager.
-     *
-     * @var string
-     */
-    public $class = EmailSenderManager::class;
+    public function __construct()
+    {
+        $this->manager = app('amethyst')->get('email-sender');
+    }
 
     /**
      * Generate.
@@ -41,7 +33,7 @@ class EmailSendersController extends RestManagerController
         $email = $manager->getRepository()->findOneById($id);
 
         if ($email == null) {
-            return $this->response('', Response::HTTP_NOT_FOUND);
+            abort(404);
         }
 
         $result = $manager->execute($email, (array) $request->input('data'));
